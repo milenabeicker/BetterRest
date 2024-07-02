@@ -8,15 +8,41 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    @State private var sleepAmount = 8.0
+    @State private var wakeUp = Date.now
+    @State private var coffeAmount = 1
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        NavigationStack {
+            VStack {
+                Text("Quando você quer acordar")
+                    .font(.headline)
+                
+                DatePicker("Please enter a date", selection: $wakeUp, displayedComponents: .hourAndMinute)
+                    .labelsHidden()
+               
+                Text("Quantidade desejada de sono")
+                    .font(.headline)
+                
+                Stepper("\(sleepAmount.formatted()) hours", value: $sleepAmount, in: 4...12, step: 0.25)
+                
+                Text("Ingestão diária de café")
+                    .font(.headline)
+                Stepper("\(coffeAmount) xícaras", value: $coffeAmount, in: 1...20)
+            }
+            .padding()
+            .navigationTitle("Better Rest")
+            .toolbar {
+                Button("Calcular", action: calculateBedTime)
+            }
         }
-        .padding()
     }
+    
+    func calculateBedTime() {
+        
+    }
+    
 }
 
 #Preview {
